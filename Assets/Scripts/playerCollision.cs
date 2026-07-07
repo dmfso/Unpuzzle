@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class playerCollision : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.CompareTag("Enemy"))
+        {
+            GameManager.Instance.Die(gameObject);
+        }
+        else if (other.CompareTag("Finish"))
+        {
+            GameManager.Instance.CheckFinish();
+        }
+        else if (other.CompareTag("Checkpoint"))
+        {
+            GameManager.Instance.SetCheckpoint(other.transform.position);
+        }
     }
 }
